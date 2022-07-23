@@ -1,6 +1,8 @@
 # intiface-cli-docker
 
-Docker Container for [intiface-cli](https://github.com/intiface/intiface-cli-rs).
+Docker container for [intiface-cli](https://github.com/intiface/intiface-cli-rs).
+
+Built and pushed [here](https://hub.docker.com/r/containerizedoctopus/intiface-cli).
 
 Works in kubernetes too.
 
