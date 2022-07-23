@@ -43,7 +43,3 @@ ENV INTIFACE_CLI_WITHOUT '--without-hid --without-serial --without-lovense-dongl
 ENV INTIFACE_CLI_OVERRIDE_ALL_ARGS 'false'
 
 ENV INTIFACE_CLI_REDOWNLOAD_DEVICE_CONFIG 'true'
-
-# TODO healthcheck on the port.
-# TODO run as non-root
-# TODO be sure host kernel has bluetooth kernel module AND supports your bluetooth adapter.
