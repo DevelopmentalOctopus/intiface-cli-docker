@@ -7,24 +7,21 @@ service bluetooth start
 timeout 10s bash -c 'until service bluetooth status; do sleep 1; done'
 bluetoothctl list
 
-if [[ "${INTIFACE_CLI_REDOWNLOAD_DEVICE_CONFIG}" == "true" ]]; then
+if [[ "${INTIFACE_ENGINE_REDOWNLOAD_DEVICE_CONFIG}" == "true" ]]; then
   wget -qO device-config.json https://raw.githubusercontent.com/buttplugio/buttplug/master/buttplug/buttplug-device-config/buttplug-device-config.json
 fi
 
-IntifaceCLI --version
+intiface-engine --version
 
-# https://github.com/intiface/intiface-cli-rs#running
-if [[ "${INTIFACE_CLI_OVERRIDE_ALL_ARGS}" == "false" ]]; then
-  exec IntifaceCLI \
-    --servername "${INTIFACE_CLI_SERVER_NAME}" \
-    --deviceconfig device-config.json \
-    --stayopen \
-    --wsallinterfaces \
-    --wsinsecureport 12345 \
-    --log "${INTIFACE_CLI_LOG_LEVEL}" \
-    ${INTIFACE_CLI_WITHOUT}
+# https://github.com/intiface/intiface-engine#running Though documentation currently disagrees with itself and intiface-engine --help.
+if [[ "${INTIFACE_ENGINE_OVERRIDE_ALL_ARGS}" == "false" ]]; then
+  exec intiface-engine \
+    --server-name "${INTIFACE_ENGINE_SERVER_NAME}" \
+    --device-config-file device-config.json \
+    --websocket-use-all-interfaces \
+    --websocket-port 12345 \
+    ${INTIFACE_ENGINE_USE}
+#    --log "${INTIFACE_ENGINE_LOG_LEVEL}" \ # TODO currently errors.
 else
-  exec IntifaceCLI ${INTIFACE_CLI_OVERRIDE_ALL_ARGS}
+  exec intiface-engine ${INTIFACE_ENGINE_OVERRIDE_ALL_ARGS}
 fi
-
-# TODO --stayopen wanted?
